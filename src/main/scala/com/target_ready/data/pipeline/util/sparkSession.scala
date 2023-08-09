@@ -5,9 +5,6 @@ import  com.target_ready.data.pipeline.constants.ApplicationConstants.{APP_NAME,
 
 object sparkSession {
 
-  /** ==============================================================================================================
-   *                                       FUNCTION TO CREATE SPARK SESSION
-   *  ============================================================================================================ */
   def createSparkSession(): SparkSession = {
       SparkSession.builder()
         .appName(APP_NAME)

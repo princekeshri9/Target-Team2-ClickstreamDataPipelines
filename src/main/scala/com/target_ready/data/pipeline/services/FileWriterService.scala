@@ -7,12 +7,6 @@ import org.apache.spark.sql.streaming.{OutputMode,Trigger}
 
 object FileWriterService {
 
-  /** ===============================================================================================================
-   *  FUNCTION TO WRITE DATA INTO KAFKA STREAM
-   *
-   *  @param df             the dataframe taken as an input
-   *  @param topic          kafka topic name
-   *  ==============================================================================================================*/
   def writeDataToStream(df: DataFrame, topic: String): Unit = {
     try {
       df
@@ -28,15 +22,6 @@ object FileWriterService {
   }
 
 
-
-
-  /** ===============================================================================================================
-   *  FUNCTIONS TO SAVE DATA INTO OUTPUT LOCATION
-   *
-   *  @param df             the dataframe taken as an input
-   *  @param filePath       the location where null values will be written
-   *  @param fileFormat     specifies format of the file
-   *  ==============================================================================================================*/
   def writeDataToOutputDir(df: DataFrame, fileFormat: String, filePath: String): Unit = {
     try {
       df.writeStream
@@ -52,19 +37,6 @@ object FileWriterService {
     }
   }
 
-
-
-
-  /** ===============================================================================================================
-   *  FUNCTIONS TO SAVE DATA INTO SQL TABLE
-   *
-   *  @param df          the dataframe taken as an input
-   *  @param driver      MySql driver
-   *  @param tableName   MySql table name
-   *  @param jdbcUrl     jdbc URL
-   *  @param user        MySql database username
-   *  @param password    MySql database password
-   *  ============================================================================================================ */
   def writeDataToSqlServer(df: DataFrame, driver: String, tableName: String, jdbcUrl: String, user: String, password: String): Unit = {
     df.writeStream
       .foreachBatch { (batchDF: DataFrame, batchId: Long) =>
@@ -82,16 +54,6 @@ object FileWriterService {
       .start().awaitTermination(150000)
   }
 
-
-
-
-  /** ===============================================================================================================
-   *  FUNCTION TO SAVE NULL-VALUE DATA INTO NULL-VALUE-OUTPUT LOCATION
-   *
-   *  @param df             the dataframe taken as an input
-   *  @param filePath       the location where null values will be written
-   *  @param fileFormat     specifies format of the file
-   *  ============================================================================================================== */
   def writeNullDataToOutputDir(df: DataFrame, fileFormat: String, filePath: String): Unit = {
     try {
       df.writeStream

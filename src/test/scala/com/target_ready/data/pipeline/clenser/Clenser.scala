@@ -9,14 +9,6 @@ import org.apache.spark.internal.Logging
 
 object Clenser extends Logging {
 
-  /** ==============================================================================================================
-   * FUNCTION TO CHANGE THE DATATYPE
-   *
-   * @param df          the dataframe
-   * @param columnNames sequence of columns of the df dataframe
-   * @param dataTypes   sequence of data types
-   * @return            dataframe with updated data type
-   * =============================================================================================================*/
   def dataTypeValidation(df: DataFrame, columnNames: Seq[String], dataTypes: Seq[String]): DataFrame = {
     var dfChangedDataType: DataFrame = df
     for (i <- columnNames.indices) {
@@ -29,18 +21,6 @@ object Clenser extends Logging {
   }
 
 
-
-
-  /** ==============================================================================================================
-   * FUNCTION TO FIND AND REMOVE NULL VALUE ROWS FROM DATAFRAME
-   *
-   *
-   * @param df             the dataframe taken as an input
-   * @param primaryColumns sequence of primary key columns
-   * @param filePath       the location where null values will be written
-   * @param fileFormat     specifies format of the file
-   * @return notNullDf which is the data free from null values
-   * ============================================================================================================ */
   def findRemoveNullKeys(df: DataFrame, primaryColumns: Seq[String], filePath: String, fileFormat: String): DataFrame = {
 
     val columnNames: Seq[Column] = primaryColumns.map(ex => col(ex))
@@ -55,18 +35,6 @@ object Clenser extends Logging {
 
   }
 
-
-
-
-  /** ==============================================================================================================
-   * FUNCTION TO REMOVE DUPLICATE ROWS IN DATAFRAME
-   *
-   *
-   * @param df                the dataframe
-   * @param primaryKeyColumns sequence of primary key columns of the df dataframe
-   * @param orderByColumn
-   * @return dataframe with no duplicates
-   *         ============================================================================================================ */
   def removeDuplicates(df: DataFrame, primaryKeyColumns: Seq[String], orderByColumn: Option[String]): DataFrame = {
 
     val dfDropDuplicates: DataFrame = orderByColumn match {
@@ -80,15 +48,6 @@ object Clenser extends Logging {
 
   }
 
-
-
-
-  /** ==============================================================================================================
-   *  FUNCTION TO UPPERCASE DATAFRAME COLUMNS
-   *
-   *  @param df     the dataframe
-   *  @return       dataframe with uppercase columns
-   *  ============================================================================================================ */
   def uppercaseColumns(df: DataFrame): DataFrame = {
     val columns = df.columns
     var resultDf = df
@@ -97,15 +56,6 @@ object Clenser extends Logging {
     resultDf
   }
 
-
-
-
-  /** ==============================================================================================================
-   *  FUNCTION TO LOWERCASE DATAFRAME COLUMNS
-   *
-   *  @param df     the dataframe
-   *  @return       dataframe with lowercase columns
-   *  ============================================================================================================ */
   def lowercaseColumns(df: DataFrame): DataFrame = {
     val columns = df.columns
     var resultDf = df
@@ -114,15 +64,6 @@ object Clenser extends Logging {
     resultDf
   }
 
-
-
-
-  /** ===============================================================================================================
-   *  FUNCTION TO TRIM DATAFRAME COLUMNS
-   *
-   *  @param df     the dataframe
-   *  @return       trimmed dataframe
-   *  ============================================================================================================ */
   def trimColumn(df: DataFrame): DataFrame = {
     val columns = df.columns
     var resultDf = df
@@ -135,18 +76,6 @@ object Clenser extends Logging {
     resultDf
   }
 
-
-
-
-  /** ==============================================================================================================
-   *  FUNCTION TO SPLIT READ-STREAM DATAFRAME COLUMN(Value) TO MULTIPLE COLUMNS
-   *
-   * @param df                          the dataframe taken as an input
-   * @param ConcatenatedColumnName      column name which needs to be split
-   * @param separator                   data separator(,)
-   * @param originalColumnNames         column names for new dataframe
-   * @return                            return dataframe with original column names
-   *  ============================================================================================================ */
   def splitColumns(df: DataFrame, ConcatenatedColumnName: String, separator: String, originalColumnNames: Seq[String]): DataFrame = {
   val splitCols = originalColumnNames.zipWithIndex.map { case (colName, index) =>
     split(col(ConcatenatedColumnName), separator).getItem(index).alias(colName)
@@ -154,18 +83,6 @@ object Clenser extends Logging {
   df.select(splitCols: _*)
   }
 
-
-
-
-  /** ==============================================================================================================
-   *  FUNCTION TO CONCATENATE READ-STREAM DATAFRAME COLUMN(Value) TO MULTIPLE COLUMNS
-   *
-   *  @param df             the dataframe taken as an input
-   *  @param columnNames    column names of given dataframe
-   *  @param newColumnName  Concatenated column name
-   *  @param separator      data separator
-   *  @return               return concatenated dataframe
-   *  =========================================================================================================== */
   def concatenateColumns(df: DataFrame, columnNames: Seq[String],newColumnName:String,separator:String): DataFrame = {
 
     df.withColumn(newColumnName, concat_ws(separator, columnNames.map(col): _*))

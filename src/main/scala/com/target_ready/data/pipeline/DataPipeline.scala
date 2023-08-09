@@ -13,18 +13,9 @@ object DataPipeline extends Logging {
   var exitCode: Int = ApplicationConstants.FAILURE_EXIT_CODE
 
   def main(args: Array[String]): Unit = {
-
-    /** ==============================================================================================================
-     *                                            Creating Spark Session
-     *  ============================================================================================================ */
     val spark: SparkSession = createSparkSession()
     logInfo("Creating Spark Session complete.")
 
-
-
-    /** ==============================================================================================================
-     *                                              Executing Pipeline
-     *  ============================================================================================================ */
     try {
 
       PipelineService.executePipeline()(spark)

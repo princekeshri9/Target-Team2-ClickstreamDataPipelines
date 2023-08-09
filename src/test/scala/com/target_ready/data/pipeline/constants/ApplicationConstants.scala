@@ -2,9 +2,6 @@ package com.target_ready.data.pipeline.constants
 
 object ApplicationConstants {
 
-  /** ===============================================================================================================
-   *                                               SERVER CONFIG PROPS
-   *  ============================================================================================================== */
 
   //  Spark Session Configs
   val SERVER_ID: String = "localhost:9092"
@@ -15,11 +12,6 @@ object ApplicationConstants {
   val TOPIC_NAME_ITEM_DATA: String = "itemDataTest"
   val TOPIC_NAME_CLICKSTREAM_DATA: String = "clickStreamDataTest"
 
-
-
-  /** ===============================================================================================================
-   *                                             INPUT-OUTPUT formats, paths
-   *  ============================================================================================================== */
 
   //  ITEM_DATA
   val INPUT_FORMAT_ITEM_DATA: String = "csv"
@@ -38,11 +30,6 @@ object ApplicationConstants {
   //  Null value file path
   val NULL_VALUE_FILE_FORMAT: String = "csv"
 
-
-
-  /** ===============================================================================================================
-   *                                                INPUT DATA COLUMN NAMES
-   *  ============================================================================================================== */
 
   //  Item Data
   val DUP_VALUE_CHECK_COLUMN: String = "item_id"
@@ -90,11 +77,6 @@ object ApplicationConstants {
   val ROW_CONDITION: String = "row_number == 1"
 
 
-
-  /** ============================================================================================================
-   *                                                MYSQL SERVER CONFIGURATIONS
-   * ============================================================================================================*/
-
   //  jdbc configurations
   val JDBC_URL : String = "jdbc:mysql://localhost:3306/stream1"
   val JDBC_DRIVER: String = "com.mysql.cj.jdbc.Driver"
@@ -114,11 +96,6 @@ object ApplicationConstants {
   val USER_NAME: String = "root"
   val KEY_PASSWORD: String = "Krishna@123"
 
-
-
-  /** ============================================================================================================
-   *                                            PIPELINE EXIT CODES
-   * ============================================================================================================ */
 
   val FAILURE_EXIT_CODE: Int = 1
   val SUCCESS_EXIT_CODE: Int = 0
